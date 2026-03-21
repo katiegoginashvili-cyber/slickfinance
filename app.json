@@ -13,13 +13,13 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.budgetplanner.app",
+      "bundleIdentifier": "com.aibudgetplanner.app",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
-      "package": "com.budgetplanner.app",
+      "package": "com.aibudgetplanner.app",
       "adaptiveIcon": {
         "backgroundColor": "#F4F4FF",
         "foregroundImage": "./appicon.png"
@@ -33,17 +33,17 @@
       "expo-font",
       "expo-dev-client"
     ],
-    "extra": {
-      "eas": {
-        "projectId": "492b80a9-3367-4429-9c71-0e14ffa3231b"
-      }
-    },
-    "owner": "chavchuki",
+    "owner": "kazaka",
     "runtimeVersion": {
       "policy": "appVersion"
     },
+    "extra": {
+      "eas": {
+        "projectId": "04b307bf-2309-48e2-b76d-1f92d43de9f3"
+      }
+    },
     "updates": {
-      "url": "https://u.expo.dev/492b80a9-3367-4429-9c71-0e14ffa3231b"
+      "url": "https://u.expo.dev/04b307bf-2309-48e2-b76d-1f92d43de9f3"
     }
   }
 }
