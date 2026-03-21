@@ -224,7 +224,7 @@ export function AddSubscriptionScreen({ navigation }: Props) {
     const hasQuery = search.trim().length > 0;
 
     return (
-      <AppScreen edges={['top', 'left', 'right', 'bottom']}>
+      <View style={{ flex: 1, backgroundColor: colors.bg, paddingTop: layoutInsets.top, paddingBottom: layoutInsets.bottom }}>
         <ScreenHeader
           title="Add Subscription"
           left={<HeaderTextAction label="Cancel" onPress={() => navigation.goBack()} />}
@@ -367,13 +367,13 @@ export function AddSubscriptionScreen({ navigation }: Props) {
           )}
           </ScrollView>
         </View>
-      </AppScreen>
+      </View>
     );
   }
 
   // ── Form ──────────────────────────────────────────────────────────────────
   return (
-    <AppScreen edges={['top', 'left', 'right', 'bottom']}>
+    <View style={{ flex: 1, backgroundColor: colors.bg, paddingTop: layoutInsets.top, paddingBottom: layoutInsets.bottom }}>
       <ScreenHeader
         title="Add Subscription"
         left={<IconCircleButton icon="chevron-back" onPress={() => setStep('picker')} />}
@@ -755,7 +755,7 @@ export function AddSubscriptionScreen({ navigation }: Props) {
           onClose={() => setShowReminderTimePicker(false)}
           onSelect={(hhmm) => setReminderTime(hhmm)}
         />
-    </AppScreen>
+    </View>
   );
 }
 

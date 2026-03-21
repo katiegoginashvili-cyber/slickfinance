@@ -137,7 +137,6 @@ export function AppActionSheet({ visible, onClose, children, maxHeight, safeArea
             s.safeSheetWrap,
             {
               paddingTop: topInset,
-              paddingBottom: bottomInset,
             },
           ]}
           pointerEvents="box-none"
@@ -146,8 +145,8 @@ export function AppActionSheet({ visible, onClose, children, maxHeight, safeArea
             style={[
               s.sheet,
               {
-                height: sheetHeight,
-                maxHeight: safeInnerHeight,
+                height: sheetHeight + bottomInset,
+                maxHeight: safeInnerHeight + bottomInset,
                 transform: [{ translateY }],
               },
             ]}
@@ -156,7 +155,7 @@ export function AppActionSheet({ visible, onClose, children, maxHeight, safeArea
               <View style={s.handleZone} {...panResponder.panHandlers}>
                 <View style={s.handleBar} />
               </View>
-              <View style={s.body}>{children}</View>
+              <View style={[s.body, { paddingBottom: bottomInset + 4 }]}>{children}</View>
             </View>
           </Animated.View>
         </View>
