@@ -79,6 +79,7 @@ export function EditSubscriptionScreen({ navigation, route }: Props) {
   );
   const { subscriptionId } = route.params;
   const update = useSubscriptionsStore((s) => s.update);
+  const [saving, setSaving] = useState(false);
   const sub = useSubscriptionsStore((s) => s.items.find((i) => i.id === subscriptionId));
 
   const priceRef = useRef<TextInput>(null);
@@ -163,13 +164,14 @@ export function EditSubscriptionScreen({ navigation, route }: Props) {
   }
 
   async function handleSave() {
-    if (!sub) return;
+    if (!sub || saving) return;
     const numPrice = Number(price.replace(',', '.'));
     if (!serviceName.trim() || !Number.isFinite(numPrice) || numPrice <= 0) {
       Alert.alert('Missing info', 'Enter a service name and a valid price.');
       return;
     }
 
+    setSaving(true);
     void hapticImpactMedium();
     await update(sub.id, {
       serviceName: serviceName.trim(),
@@ -252,7 +254,7 @@ export function EditSubscriptionScreen({ navigation, route }: Props) {
       <ScreenHeader
         title="Edit Subscription"
         left={<IconCircleButton icon="chevron-back" onPress={() => navigation.goBack()} />}
-        right={<AppButton label="Save" onPress={handleSave} />}
+        right={<AppButton label={saving ? 'Saving...' : 'Save'} onPress={handleSave} disabled={saving} />}
       />
       <ScrollView
         style={{ flex: 1 }}

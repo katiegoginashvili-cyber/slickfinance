@@ -64,6 +64,7 @@ export function AddSubscriptionScreen({ navigation }: Props) {
     [safeAreaInsets]
   );
   const add = useSubscriptionsStore((s) => s.add);
+  const [saving, setSaving] = useState(false);
 
   const [step, setStep] = useState<'picker' | 'form'>('picker');
   const [search, setSearch] = useState('');
@@ -159,11 +160,13 @@ export function AddSubscriptionScreen({ navigation }: Props) {
   }
 
   async function handleSave() {
+    if (saving) return;
     const numPrice = Number(price.replace(',', '.'));
     if (!serviceName.trim() || !Number.isFinite(numPrice) || numPrice <= 0) {
       Alert.alert('Missing info', 'Enter a service name and a valid price.');
       return;
     }
+    setSaving(true);
     void hapticImpactMedium();
     await add({
       serviceName: serviceName.trim(),
@@ -377,7 +380,7 @@ export function AddSubscriptionScreen({ navigation }: Props) {
       <ScreenHeader
         title="Add Subscription"
         left={<IconCircleButton icon="chevron-back" onPress={() => setStep('picker')} />}
-        right={<AppButton label="Save" onPress={handleSave} />}
+        right={<AppButton label={saving ? 'Saving...' : 'Save'} onPress={handleSave} disabled={saving} />}
       />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         <ScrollView

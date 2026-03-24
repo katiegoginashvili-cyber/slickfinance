@@ -109,21 +109,26 @@ export function AppButton({
   label,
   onPress,
   variant = 'primary',
+  disabled = false,
 }: {
   label: string;
   onPress: () => void;
   variant?: 'primary' | 'secondary';
+  disabled?: boolean;
 }) {
   return (
     <Pressable
       onPress={() => {
+        if (disabled) return;
         void hapticImpact();
         onPress();
       }}
+      disabled={disabled}
       style={({ pressed }) => [
         s.button,
         variant === 'secondary' && s.buttonSecondary,
         pressed && s.pressed,
+        disabled && { opacity: 0.5 },
       ]}
     >
       <Text style={[s.buttonText, variant === 'secondary' && s.buttonTextSecondary]}>{label}</Text>
