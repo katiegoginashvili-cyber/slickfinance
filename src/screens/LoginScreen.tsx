@@ -12,6 +12,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import * as WebBrowser from 'expo-web-browser';
 import { makeRedirectUri } from 'expo-auth-session';
+import Constants from 'expo-constants';
 import { Ionicons } from '@expo/vector-icons';
 import { supabase } from '../lib/supabase';
 import { useAuthStore } from '../features/auth/store';
@@ -58,7 +59,10 @@ export function LoginScreen() {
     try {
       setLoading(true);
 
-      const redirectTo = makeRedirectUri({ path: 'auth/callback' });
+      const isExpoGo = Constants.appOwnership === 'expo';
+      const redirectTo = isExpoGo
+        ? makeRedirectUri({ path: 'auth/callback' })
+        : 'slickfinance://auth/callback';
 
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
