@@ -52,7 +52,7 @@ export function SettingsScreen() {
         } else {
           Alert.alert(
             'Notifications Blocked',
-            'Please enable notifications in Settings > Slick finance.',
+            'Please enable notifications in Settings > Slick Money.',
             [
               { text: 'Cancel', style: 'cancel' },
               { text: 'Open Settings', onPress: () => Linking.openSettings() },
@@ -180,7 +180,7 @@ export function SettingsScreen() {
         {/* App info */}
         <SectionLabel>About</SectionLabel>
         <SurfaceCard style={styles.card}>
-          <SettingsRow label="Version" sublabel="Slick finance" right={<Text style={styles.valueText}>1.0.0</Text>} />
+          <SettingsRow label="Version" sublabel="Slick Money" right={<Text style={styles.valueText}>1.0.0</Text>} />
         </SurfaceCard>
 
         <View style={{ height: 40 }} />

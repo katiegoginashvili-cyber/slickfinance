@@ -20,7 +20,7 @@ export function getHomeNativeHeaderOptions(): NativeStackNavigationOptions {
   const ios = Platform.OS === 'ios';
   return {
     headerShown: true,
-    title: 'Slick finance',
+    title: 'Slick Money',
     headerLargeTitle: ios,
     headerTransparent: ios,
     headerBlurEffect: ios && !isIOS26OrLater() ? 'regular' : undefined,

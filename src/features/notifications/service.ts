@@ -68,7 +68,7 @@ export async function registerPushToken(): Promise<string | null> {
 export async function sendTestNotification(): Promise<void> {
   await Notifications.scheduleNotificationAsync({
     content: {
-      title: 'Slick finance',
+      title: 'Slick Money',
       body: 'Notifications are working!',
       sound: true,
     },
