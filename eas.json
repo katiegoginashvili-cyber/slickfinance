@@ -11,7 +11,15 @@
     },
     "preview": {
       "distribution": "internal",
-      "channel": "preview"
+      "channel": "preview",
+      "env": {
+        "EXPO_PUBLIC_SUPABASE_URL": "https://wwlbrmlshwgxchibtjhp.supabase.co",
+        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind3bGJybWxzaHdneGNoaWJ0amhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyNjQ4MTcsImV4cCI6MjA4OTg0MDgxN30.GfNvNy_EdFP5JsV4LFWD_6ShwUGrJj-jmn90v0rlY8c",
+        "EXPO_PUBLIC_LOGODEV_TOKEN": "pk_SQVsaKc_RfuK49MneNGgxw",
+        "EXPO_PUBLIC_LOGODEV_SECRET": "sk_FOObD1dgQpGbNoMxZPTIsQ",
+        "EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID": "207576146718-tprgeu0bhvb8cq57n6dbqmbbk2kj496m.apps.googleusercontent.com",
+        "EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID": "207576146718-jtkdh2nk9p4grejurbr3k83ndu270jnh.apps.googleusercontent.com"
+      }
     },
     "production": {
       "autoIncrement": true,

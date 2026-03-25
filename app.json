@@ -16,8 +16,14 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.aibudgetplanner.app",
       "usesAppleSignIn": true,
+      "entitlements": {
+        "com.apple.developer.usernotifications.communication": true
+      },
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSUserActivityTypes": [
+          "INSendMessageIntent"
+        ]
       }
     },
     "android": {
