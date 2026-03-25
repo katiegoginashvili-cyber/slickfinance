@@ -59,9 +59,27 @@ export async function registerPushToken(): Promise<string | null> {
       { onConflict: 'user_id,token' }
     );
 
+    syncTimezone(user.id);
+
     return token;
   } catch {
     return null;
+  }
+}
+
+/**
+ * Persist the device's IANA timezone (e.g. "Asia/Tbilisi") so the
+ * server-side trigger can convert reminder_time to UTC.
+ */
+async function syncTimezone(userId: string): Promise<void> {
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (!tz) return;
+    await supabase
+      .from('user_preferences')
+      .upsert({ user_id: userId, timezone: tz }, { onConflict: 'user_id' });
+  } catch {
+    // non-critical
   }
 }
 
