@@ -29,6 +29,7 @@ import { prefetchTabBackground } from './src/assets/tabBackground';
 import { getTabBarIconName } from './src/navigation/tabBarIcons';
 import { useAuthStore } from './src/features/auth/store';
 import { useSubscriptionsStore } from './src/features/subscriptions/store';
+import { ForceUpdateGate } from './src/components/ForceUpdateGate';
 
 /**
  * Tab routes (Budget / Invest kept for types + future tabs; hidden from bar via featureFlags).
@@ -150,9 +151,11 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
-        <AppInner />
-      </NavigationContainer>
+      <ForceUpdateGate>
+        <NavigationContainer>
+          <AppInner />
+        </NavigationContainer>
+      </ForceUpdateGate>
     </SafeAreaProvider>
   );
 }
