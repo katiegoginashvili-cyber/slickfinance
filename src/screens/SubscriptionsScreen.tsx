@@ -40,6 +40,7 @@ import {
 import { billingSubtitle, cycleShort } from '../features/subscriptions/subscriptionRowFormatting';
 import { useMonthlySpendCountFromOnFocus } from '../hooks/useMonthlySpendCountFromOnFocus';
 import { hapticImpact, hapticSelection } from '../ui/haptics';
+import { SubscriptionListSkeleton, SkeletonBlock } from '../components/Skeleton';
 
 type Props = BottomTabScreenProps<RootTabsParamList, 'Subscriptions'>;
 
@@ -204,43 +205,49 @@ export function SubscriptionsScreen({ navigation }: Props) {
                       onCountComplete={onHeroMonthlyCountComplete}
                     />
                   ) : (
-                    <Text style={s.spendingHeroAmount}>—</Text>
+                    <SkeletonBlock width={200} height={48} borderRadius={12} style={{ marginBottom: 14 }} />
                   )}
                   <View style={s.spendingBottomRow}>
-                    {momPill ? (
-                      <View
-                        style={[
-                          s.momPill,
-                          momPill.tone === 'green' && s.momPillGreen,
-                          momPill.tone === 'red' && s.momPillRed,
-                          momPill.tone === 'neutral' && s.momPillNeutral,
-                        ]}
-                        accessibilityRole="text"
-                        accessibilityLabel={momPill.label}
-                      >
+                    {hydrated ? (
+                      <>
+                        {momPill ? (
+                          <View
+                            style={[
+                              s.momPill,
+                              momPill.tone === 'green' && s.momPillGreen,
+                              momPill.tone === 'red' && s.momPillRed,
+                              momPill.tone === 'neutral' && s.momPillNeutral,
+                            ]}
+                            accessibilityRole="text"
+                            accessibilityLabel={momPill.label}
+                          >
+                            <Text
+                              style={[
+                                s.momPillText,
+                                momPill.tone === 'green' && s.momPillTextGreen,
+                                momPill.tone === 'red' && s.momPillTextRed,
+                                momPill.tone === 'neutral' && s.momPillTextNeutral,
+                                momPill.tone === 'same' && s.momPillTextSame,
+                                androidTextFix,
+                              ]}
+                            >
+                              {momPill.label}
+                            </Text>
+                          </View>
+                        ) : null}
                         <Text
                           style={[
-                            s.momPillText,
-                            momPill.tone === 'green' && s.momPillTextGreen,
-                            momPill.tone === 'red' && s.momPillTextRed,
-                            momPill.tone === 'neutral' && s.momPillTextNeutral,
-                            momPill.tone === 'same' && s.momPillTextSame,
+                            s.spendingYearly,
+                            momPill ? s.spendingYearlyInRow : null,
                             androidTextFix,
                           ]}
                         >
-                          {momPill.label}
+                          {formatMoney(yearlyProjection, currency as any)}/year
                         </Text>
-                      </View>
-                    ) : null}
-                    <Text
-                      style={[
-                        s.spendingYearly,
-                        momPill ? s.spendingYearlyInRow : null,
-                        androidTextFix,
-                      ]}
-                    >
-                      {hydrated ? `${formatMoney(yearlyProjection, currency as any)}/year` : ''}
-                    </Text>
+                      </>
+                    ) : (
+                      <SkeletonBlock width={140} height={18} borderRadius={8} />
+                    )}
                   </View>
                 </View>
 
@@ -272,12 +279,13 @@ export function SubscriptionsScreen({ navigation }: Props) {
                 </View>
               </View>
 
+              {!hydrated ? (
+                <SubscriptionListSkeleton />
+              ) : (
               <View style={s.listCard}>
                 {visible.length === 0 ? (
                   <View style={{ paddingHorizontal: 16, paddingVertical: 28 }}>
-                    <Text style={s.emptyText}>
-                      {hydrated ? 'No subscriptions match this filter.' : 'Loading…'}
-                    </Text>
+                    <Text style={s.emptyText}>No subscriptions match this filter.</Text>
                   </View>
                 ) : (
                   visible.map((sub, idx) => (
@@ -288,6 +296,7 @@ export function SubscriptionsScreen({ navigation }: Props) {
                   ))
                 )}
               </View>
+              )}
             </ScrollView>
 
             <View

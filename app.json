@@ -24,7 +24,8 @@
         "NSUserActivityTypes": [
           "INSendMessageIntent"
         ]
-      }
+      },
+      "appleTeamId": "UQAKU44HU2"
     },
     "android": {
       "package": "com.aibudgetplanner.app",
@@ -51,7 +52,22 @@
     },
     "extra": {
       "eas": {
-        "projectId": "04b307bf-2309-48e2-b76d-1f92d43de9f3"
+        "projectId": "04b307bf-2309-48e2-b76d-1f92d43de9f3",
+        "build": {
+          "experimental": {
+            "ios": {
+              "appExtensions": [
+                {
+                  "bundleIdentifier": "com.aibudgetplanner.app.notification-service",
+                  "targetName": "notificationservice",
+                  "entitlements": {
+                    "com.apple.developer.usernotifications.communication": true
+                  }
+                }
+              ]
+            }
+          }
+        }
       }
     },
     "updates": {

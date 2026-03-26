@@ -9,6 +9,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { adapty } from 'react-native-adapty';
 
+import { SubscriptionsSkeleton } from './src/components/Skeleton';
 import { HomeScreen } from './src/screens/HomeScreen';
 import { HomeStackNavigator } from './src/navigation/HomeStack';
 import { getHomeNativeHeaderOptions } from './src/navigation/homeStackOptions';
@@ -87,7 +88,14 @@ function AppInner() {
     return () => { listener.remove(); };
   }, [session, checkAccess, setIsPremium]);
 
-  if (!fontsLoaded || !initialized) return null;
+  if (!fontsLoaded || !initialized) {
+    return (
+      <>
+        <StatusBar style="dark" />
+        <SubscriptionsSkeleton />
+      </>
+    );
+  }
 
   if (!session) {
     return (

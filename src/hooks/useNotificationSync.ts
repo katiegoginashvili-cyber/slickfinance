@@ -4,21 +4,22 @@ import {
   requestNotificationPermissions,
   registerPushToken,
 } from '../features/notifications/service';
-import { syncLocalReminders } from '../features/notifications/localReminders';
 import { useAuthStore } from '../features/auth/store';
-import { useSubscriptionsStore } from '../features/subscriptions/store';
 
 /**
  * Call once at the app root.
- * - Registers the Expo Push Token on login AND every foreground.
- * - Syncs local fallback notifications whenever subscriptions change.
+ * Registers the Expo Push Token on login AND every time the app
+ * comes to the foreground, so the token stays fresh across
+ * development ↔ production environment changes and token rotations.
+ *
+ * All reminders are sent server-side only (Communication Notification
+ * style with subscription logos requires the Notification Service Extension,
+ * which only processes remote push notifications).
  */
 export function useNotificationSync() {
   const session = useAuthStore((s) => s.session);
-  const subscriptions = useSubscriptionsStore((s) => s.items);
   const appState = useRef<AppStateStatus>(AppState.currentState);
 
-  // Push token registration
   useEffect(() => {
     if (!session) return;
 
@@ -38,11 +39,4 @@ export function useNotificationSync() {
 
     return () => subscription.remove();
   }, [session]);
-
-  // Local fallback reminders — re-sync whenever subscription list changes
-  useEffect(() => {
-    if (!session) return;
-    if (!subscriptions.length) return;
-    syncLocalReminders(subscriptions);
-  }, [session, subscriptions]);
 }
