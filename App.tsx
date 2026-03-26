@@ -22,7 +22,6 @@ import {
   USE_FIGMA_SINGLE_PAGE_NAV,
 } from './src/config/featureFlags';
 import { AddSubscriptionScreen } from './src/screens/AddSubscriptionScreen';
-import { AddSubscriptionPrototypeScreen } from './src/screens/AddSubscriptionPrototypeScreen';
 import { SubscriptionDetailScreen } from './src/screens/SubscriptionDetailScreen';
 import { EditSubscriptionScreen } from './src/screens/EditSubscriptionScreen';
 import { useNotificationSync } from './src/hooks/useNotificationSync';
@@ -54,7 +53,6 @@ export type RootStackParamList = {
   Budget: undefined;
   Invest: undefined;
   AddSubscription: undefined;
-  AddSubscriptionPrototype: undefined;
   SubscriptionDetail: { subscriptionId: string };
   EditSubscription: { subscriptionId: string };
 };
@@ -113,16 +111,6 @@ function AppInner() {
              * `formSheet` ties vertical scrolling to iOS sheet detents (“pushing up” instead of scrolling the list).
              * Full-screen modal behaves like a normal screen so the picker list ScrollView scrolls reliably.
              */
-            presentation: Platform.OS === 'ios' ? 'fullScreenModal' : 'modal',
-            headerShown: false,
-            animation: 'slide_from_bottom',
-            contentStyle: { flex: 1 },
-          }}
-        />
-        <Stack.Screen
-          name="AddSubscriptionPrototype"
-          component={AddSubscriptionPrototypeScreen}
-          options={{
             presentation: Platform.OS === 'ios' ? 'fullScreenModal' : 'modal',
             headerShown: false,
             animation: 'slide_from_bottom',

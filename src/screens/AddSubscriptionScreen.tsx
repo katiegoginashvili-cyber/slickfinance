@@ -231,7 +231,6 @@ export function AddSubscriptionScreen({ navigation }: Props) {
         <ScreenHeader
           title="Add Subscription"
           left={<HeaderTextAction label="Cancel" onPress={() => navigation.goBack()} />}
-          right={<HeaderTextAction label="Prototype" onPress={() => navigation.navigate('AddSubscriptionPrototype')} />}
         />
 
         {/* Search bar — always at top */}

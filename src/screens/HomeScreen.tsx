@@ -54,7 +54,7 @@ export function HomeScreen({ navigation }: Props) {
     useMonthlySpendCountFromOnFocus();
 
   function openAddSubscription() {
-    navigateRoot(navigation as any, 'AddSubscriptionPrototype');
+    navigateRoot(navigation as any, 'AddSubscription');
   }
 
   useLayoutEffect(() => {
