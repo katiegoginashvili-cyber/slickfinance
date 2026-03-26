@@ -54,6 +54,15 @@ export async function registerPushToken(): Promise<string | null> {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return null;
 
+    // Remove any stale tokens for this user+platform before inserting the fresh one.
+    // This handles development ↔ production token changes and token rotations.
+    await supabase
+      .from('device_tokens')
+      .delete()
+      .eq('user_id', user.id)
+      .eq('platform', Platform.OS)
+      .neq('token', token);
+
     await supabase.from('device_tokens').upsert(
       { user_id: user.id, token, platform: Platform.OS },
       { onConflict: 'user_id,token' }
